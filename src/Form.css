@@ -45,6 +45,14 @@
   border-radius: 4px;
 }
 
+.invalid-form {
+  border-color: #ff3333;
+}
+
+.valid-form {
+  border-color: #009900;
+}
+
 .form-group__label {
   background: #1E2841;
   color: #737F92;
@@ -54,13 +62,38 @@
   padding: 2px 6px;
 }
 
-.form-button {
+.invalid-form-label {
+  color: #ff3333;
+}
+
+.valid-form-label {
+  color: #009900;
+}
+
+.form-button-active {
   height: 50px;
   background-color: #3C78E0;
   border-radius: 3px;
   font-size: 16px;
+  cursor: pointer;
   margin-top: 10px;
+}
 
+.form-button-disabled {
+  height: 50px;
+  background-color: #2E4C80;
+  cursor: not-allowed;
+  border-radius: 3px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.form-button-size {
+  text-transform: uppercase;
+  line-height: 50px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 input {

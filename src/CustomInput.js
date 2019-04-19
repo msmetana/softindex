@@ -27,8 +27,6 @@ class CustomInput extends Component {
               onChange={this.handleChange}
               placeholder={placeholder}
               value={value}
-              // pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              required
             />
           </div>
         </div>
