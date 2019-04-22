@@ -2,57 +2,52 @@ import React, {Component} from 'react';
 import CustomInput from './CustomInput';
 import './Form.css';
 
-
 class Form extends Component {
   state = {
-    firstName: '',
-    lastName: '',
-    phone: '',
-    age: '',
     firstNameValid: '',
     lastNameValid: '',
     phoneValid: '',
     ageValid: ''
   }
 
-  handleChangeFirstName = (value) => {
+  onHandleChangeFirstName = (value) => {
     this.setState({
-      firstName: value,
       firstNameValid: /^[a-zA-Z]+$/.test(value)
     });
-  }
-  handleChangeLastName = (value) => {
-    this.setState({
-      lastName: value,
-      lastNameValid: /^[a-zA-Z]+$/.test(value)
-    });
-  }
-  handleChangePhone = (value) => {
-    this.setState({
-      phone: value,
-      phoneValid: /^\+[0-9]{3}$/.test(value)
-    });
-  }
-  handleChangeAge = (value) => {
-    this.setState({
-      age: value,
-      ageValid: value < 100 && /^\d+$/.test(value)
-    });
+    this.props.handleChangeFirstName(value);
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(this.state);
+  onHandleChangeLastName = (value) => {
     this.setState({
-      firstName: '',
-      lastName: '',
-      phone: '',
-      age: '',
+      lastNameValid: /^[a-zA-Z]+$/.test(value)
+    });
+    this.props.handleChangeLastName(value);
+  }
+
+  onHandleChangePhone = (value) => {
+    this.setState({
+      phoneValid: /^\+[0-9]{12}$/.test(value)
+    });
+    this.props.handleChangePhone(value);
+  }
+
+  onHandleChangeAge = (value) => {
+    this.setState({
+      ageValid: value < 100 && /^\d+$/.test(value)
+    });
+    this.props.handleChangeAge(value);
+  }
+
+  onHandleSubmit = (e) => {
+    e.preventDefault();
+    
+    this.setState({
       firstNameValid: '',
       lastNameValid: '',
       phoneValid: '',
       ageValid: ''
     });
+    this.props.handleSubmit();
   }
 
   render() {
@@ -61,11 +56,13 @@ class Form extends Component {
       lastName,
       phone,
       age,
+    } = this.props;
+    const {
       firstNameValid,
       lastNameValid,
       phoneValid,
-      ageValid
-    } = this.state
+      ageValid,
+    } = this.state;
 
     const disableButton = !(firstNameValid && lastNameValid  && phoneValid && ageValid);
     const classNameButton = disableButton ? 'form-button-disabled' : 'form-button-active'
@@ -81,13 +78,13 @@ class Form extends Component {
     return (
       <div className="container-form">
         <div className="container-form__header">
-          Creating new form
+          adding new user
         </div>
         <div className="container-form__content">
           <form>
               <CustomInput
                 type="text"
-                onChangeValue={this.handleChangeFirstName}
+                onChangeValue={this.onHandleChangeFirstName}
                 placeholder="First Name"
                 value={firstName}
                 className={`form-group__input ${validFirstName}`}
@@ -95,7 +92,7 @@ class Form extends Component {
               />
               <CustomInput
                 type="text"
-                onChangeValue={this.handleChangeLastName}
+                onChangeValue={this.onHandleChangeLastName}
                 placeholder="Last Name"
                 value={lastName}
                 className={`form-group__input ${validLastName}`}
@@ -103,7 +100,7 @@ class Form extends Component {
               />
               <CustomInput
                 type="text"
-                onChangeValue={this.handleChangePhone}
+                onChangeValue={this.onHandleChangePhone}
                 placeholder="Phone"
                 value={phone}
                 className={`form-group__input ${validPhone}`}
@@ -111,7 +108,7 @@ class Form extends Component {
               />
               <CustomInput
                 type="number"
-                onChangeValue={this.handleChangeAge}
+                onChangeValue={this.onHandleChangeAge}
                 placeholder="Age"
                 value={age}
                 className={`form-group__input ${validAge}`}
@@ -121,7 +118,7 @@ class Form extends Component {
                 <input type="submit"
                   className="form-button-size"
                   value="Submit"
-                  onClick={this.handleSubmit}
+                  onClick={this.onHandleSubmit}
                   disabled={disableButton}
                 />
               </div>
